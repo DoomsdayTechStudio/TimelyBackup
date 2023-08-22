@@ -34,33 +34,33 @@ void getFiles(const string& dataPath, vector<string>& files)
 		_findclose(hFile);
 	}
 }
-void RemoveDir(string& dirPath)  //É¾³ıÎÄ¼ş¼Ğ£¬ÊäÈëstring×Ö·û´®ÀàĞÍµÄÏà¶ÔÂ·¾¶
+void RemoveDir(string& dirPath)  //åˆ é™¤æ–‡ä»¶å¤¹ï¼Œè¾“å…¥stringå­—ç¬¦ä¸²ç±»å‹çš„ç›¸å¯¹è·¯å¾„
 {
 	vector<string> dirFileList;
-	getFiles(dirPath, dirFileList);  //¶ÁÈ¡ËùÓĞÎÄ¼ş
+	getFiles(dirPath, dirFileList);  //è¯»å–æ‰€æœ‰æ–‡ä»¶
 	while (!dirFileList.empty())
 	{
-		string fileName = dirFileList.back(); //´ÓºóÍùÇ°É¾³ı
-		DeleteFile(fileName.c_str()); //Ò»¸ö¸öÉ¾³ı×ÓÎÄ¼ş
+		string fileName = dirFileList.back(); //ä»åå¾€å‰åˆ é™¤
+		DeleteFile(fileName.c_str()); //ä¸€ä¸ªä¸ªåˆ é™¤å­æ–‡ä»¶
 		dirFileList.pop_back();
 	}
-	RemoveDirectory(dirPath.c_str()); //É¾³ıÎÄ¼ş¼Ğ£¬¿ÕÎÄ¼ş¼Ğ²ÅÄÜÓÃÕâ¸öº¯ÊıÉ¾³ı
+	RemoveDirectory(dirPath.c_str()); //åˆ é™¤æ–‡ä»¶å¤¹ï¼Œç©ºæ–‡ä»¶å¤¹æ‰èƒ½ç”¨è¿™ä¸ªå‡½æ•°åˆ é™¤
 }
-void CopyDir(const string& oriPath, const string& destPath) //¸´ÖÆÎÄ¼ş¼Ğµ×ÏÂµÄ×ÓÎÄ¼ş£¬Í¬ÑùÊäÈëÏà¶ÔÂ·¾¶
+void CopyDir(const string& oriPath, const string& destPath) //å¤åˆ¶æ–‡ä»¶å¤¹åº•ä¸‹çš„å­æ–‡ä»¶ï¼ŒåŒæ ·è¾“å…¥ç›¸å¯¹è·¯å¾„
 {
 	vector<string> dirFileList;
 	getFiles(oriPath, dirFileList);
 	while (!dirFileList.empty())
 	{
-		string fileName = dirFileList.back(); //´ÓºóÍùÇ°¸´ÖÆ
+		string fileName = dirFileList.back(); //ä»åå¾€å‰å¤åˆ¶
 		size_t Position = fileName.find_last_of('/');
-		string prefixName = fileName.substr(Position, fileName.size()); //¶ÁÈ¡×ÓÎÄ¼şµÄÎÄ¼şÃû
+		string prefixName = fileName.substr(Position, fileName.size()); //è¯»å–å­æ–‡ä»¶çš„æ–‡ä»¶å
 		CopyFile(fileName.c_str(), (destPath+ prefixName).c_str(),false);
 		dirFileList.pop_back();
 	}
 }
 
-void BallonMsg(int MsgType,HWND hwnd,string INFOTITLETEXT,string INFOTEXT)//ÆøÅİÍ¨Öª 
+void BallonMsg(int MsgType,HWND hwnd,string INFOTITLETEXT,string INFOTEXT)//æ°”æ³¡é€šçŸ¥ 
 {
 	HINSTANCE hins = NULL;
 	NOTIFYICONDATAA nid = {};
@@ -103,7 +103,7 @@ void BallonMsg(int MsgType,HWND hwnd,string INFOTITLETEXT,string INFOTEXT)//ÆøÅİ
 	} 
  } 
  
- void TrayWindowIcon(HINSTANCE hInstance,HWND hWnd,string TIPTEXT)//ÍĞÅÌÍ¼±ê 
+ void TrayWindowIcon(HINSTANCE hInstance,HWND hWnd,string TIPTEXT)//æ‰˜ç›˜å›¾æ ‡ 
  {
  	HINSTANCE hins = hInstance; 
 	NOTIFYICONDATAA nid = {};
@@ -116,7 +116,7 @@ void BallonMsg(int MsgType,HWND hwnd,string INFOTITLETEXT,string INFOTEXT)//ÆøÅİ
 	Shell_NotifyIcon(NIM_ADD, &nid);
  }
  
- void TrayIconTipText(HWND hWnd,string TIPTEXT)//¸Ätiptext 
+ void TrayIconTipText(HWND hWnd,string TIPTEXT)//æ”¹tiptext 
  {
  	NOTIFYICONDATAA nid = {};
  	nid.hWnd = hWnd;
@@ -142,7 +142,7 @@ int main()
 	int t_now_int,rt_int,result_tm;
 	
 	SetWindowPos(console,HWND_BOTTOM,0,0,0,0,SWP_HIDEWINDOW | SWP_NOOWNERZORDER);
-	TrayWindowIcon(hInst,console,"ÏÂ´Î±¸·İÊ±¼ä£ºÎ´¼ÆÁ¿");
+	TrayWindowIcon(hInst,console,"ä¸‹æ¬¡å¤‡ä»½æ—¶é—´ï¼šæœªè®¡é‡");
 	ifstream read_t("./tlog.log");
 	read_t>>rt;
 	if(rt==""){
@@ -152,8 +152,8 @@ int main()
     	write_t<<wt;
     	write_t.close();
 	}
-    ballon_init = "ÉÏ´Î±¸·İÊ±¼ä£º" + rt; 
-	BallonMsg(0,console,"Æô¶¯³É¹¦",ballon_init);
+    ballon_init = "ä¸Šæ¬¡å¤‡ä»½æ—¶é—´ï¼š" + rt; 
+	BallonMsg(0,console,"å¯åŠ¨æˆåŠŸ",ballon_init);
 	while(1)
 	{
 		t_now=to_string(time(&timep));
@@ -162,11 +162,11 @@ int main()
 		t_now_ss>>t_now_int;
 		rt_ss>>rt_int;
 		result_tm=t_now_int-rt_int;
-		tip_content = "ÏÂ´Î±¸·İÊ±¼ä£º" + to_string(10800-result_tm) + "s"; 
+		tip_content = "ä¸‹æ¬¡å¤‡ä»½æ—¶é—´ï¼š" + to_string(10800-result_tm) + "s"; 
 		TrayIconTipText(console,tip_content);
-		if(result_tm>=10800){//Ä¬ÈÏ3Ğ¡Ê±Ò»´Î 
-			ballon = "Ê±¼ä£º" + to_string(time(&timep));
-			BallonMsg(0,console,"ÒÑ±¸·İ",ballon);
+		if(result_tm>=10800){//é»˜è®¤3å°æ—¶ä¸€æ¬¡ 
+			ballon = "æ—¶é—´ï¼š" + to_string(time(&timep));
+			BallonMsg(0,console,"å·²å¤‡ä»½",ballon);
 			rt = to_string(time(&timep));
 			wt = to_string(time(&timep));
 			ofstream write_t("./tlog.log");
@@ -177,7 +177,7 @@ int main()
 			mkdir_o = "mkdir origin-" + wt;
 			mkdir_f = "mkdir forge-" + wt;
 			rmdir_o = "./origin-" + to_string(t_now_int - 259200);
-			rmdir_f = "./forge-" + to_string(t_now_int - 259200);//Ä¬ÈÏÉ¾³ı72hÖ®Ç°µÄ±¸·İ 
+			rmdir_f = "./forge-" + to_string(t_now_int - 259200);//é»˜è®¤åˆ é™¤72hä¹‹å‰çš„å¤‡ä»½ 
 			const char* mkdir_o_char = mkdir_o.data();
 			const char* mkdir_f_char = mkdir_f.data();
 			system(mkdir_o_char);
@@ -185,9 +185,9 @@ int main()
 			RemoveDir(rmdir_o);
 			RemoveDir(rmdir_f);
 			CopyDir("./test", bdir_o);
-			CopyDir("./test",bdir_f);//¼ÇµÃ¸ÄÃû£¬¶øÇÒÕâÊÇÏà¶ÔÂ·¾¶ £¬ĞÎÊ½Îª£º./*****£¨Í¬Ä¿Â¼£© ../£¨ÉÏ¼¶£© 
+			CopyDir("./test",bdir_f);//è®°å¾—æ”¹åï¼Œè€Œä¸”è¿™æ˜¯ç›¸å¯¹è·¯å¾„ ï¼Œå½¢å¼ä¸ºï¼š./*****ï¼ˆåŒç›®å½•ï¼‰ ../ï¼ˆä¸Šçº§ï¼‰ 
 		}
-		Sleep(300);
+		Sleep(500);
 	}
     return 0;
 }
