@@ -1,0 +1,4 @@
+#include "res.h"
+
+IDI_NOTIFICATIONICON       ICON         "1.ico"
+IDI_ICON     			   ICON         "1.ico"
